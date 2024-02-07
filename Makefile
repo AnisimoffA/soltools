@@ -26,7 +26,8 @@ test-coverage:
 
 PORT ?= 8000
 start:
-    poetry run gunicorn -w 5 -b 0.0.0.0:$(PORT) task_manager.wsgi
+    poetry run gunicorn -w 5 -b 0.0.0.0:$(PORT) webtools.wsgi
 
 shell:
 	poetry run python manage.py shell_plus
+
