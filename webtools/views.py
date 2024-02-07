@@ -13,7 +13,7 @@ class MainPage(DataMixin, TemplateView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
-        c_def = self.get_user_context(title="Task manager Hexlet")
+        c_def = self.get_user_context(title="Sol Manager")
         return context | c_def
 
 
@@ -27,11 +27,11 @@ class LoginUser(DataMixin, LoginView):
         return context | c_def
 
     def get_success_url(self):
-        messages.success(self.request, 'You are successfully logged in')
+        messages.success(self.request, 'Вы успешно вошли')
         return reverse_lazy('main_page')
 
 
 def logout_user(request):
     logout(request)
-    messages.info(request, 'You are successfully logged out')
+    messages.info(request, 'Вы успешно вышли')
     return redirect('main_page')

@@ -20,7 +20,7 @@ class UserRegister(DataMixin, CreateView):
         return context | c_def
 
     def form_valid(self, form):
-        messages.success(self.request, "You have successfully registered")
+        messages.success(self.request, "Вы успешно зарегистрированы")
         form.save()
         return redirect('login')
 
@@ -33,7 +33,7 @@ class UserUpdate(CustomUserPermisionsMixin, DataMixin, UpdateView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
-        c_def = self.get_user_context(title="Updating user")
+        c_def = self.get_user_context(title="Обновление пользователя")
         return context | c_def
 
     def get_success_url(self):
@@ -52,11 +52,11 @@ class UserDelete(DataMixin, DeleteView, LoginRequiredMixin): # CheckUsersTasksMi
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
-        c_def = self.get_user_context(title="Deleting")
+        c_def = self.get_user_context(title="Удаление пользователя")
         return context | c_def
 
     def post(self, request, *args, **kwargs):
         response = super().post(request, *args, **kwargs)
-        messages.success(self.request, "User was deleted successfully")
+        messages.success(self.request, "Пользователь успешно удален")
         return response
 

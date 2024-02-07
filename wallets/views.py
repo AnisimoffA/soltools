@@ -22,7 +22,7 @@ class WalletsList(LoginRequiredMixin, DataMixin, ListView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
-        c_def = self.get_user_context(title="Wallets")
+        c_def = self.get_user_context(title="Кошельки")
         return context | c_def
 
     def get_queryset(self):
@@ -65,7 +65,7 @@ class WalletsAdd(LoginRequiredMixin, DataMixin, CreateView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
-        c_def = self.get_user_context(title="Wallets creating")
+        c_def = self.get_user_context(title="Создание кошельков")
         return context | c_def
 
     def get_success_url(self):
@@ -109,7 +109,7 @@ class WalletsTransfer(DataMixin, TemplateView):
         context['object_list'] = object_list
         context['selection_form'] = WalletsSelectionForm()
 
-        c_def = self.get_user_context(title="Wallets adding")
+        c_def = self.get_user_context(title="Добавление кошельков")
         return context | c_def
 
     def get(self, request):
@@ -155,7 +155,7 @@ class WalletsTransferConfirm(DataMixin, TemplateView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
-        c_def = self.get_user_context(title="Transfer confirm")
+        c_def = self.get_user_context(title="Подтверждение перевода")
 
         sender = cache.get('sender')
         receiver = cache.get('receiver')
@@ -173,7 +173,7 @@ class WalletsTransferAccept(DataMixin, TemplateView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
-        c_def = self.get_user_context(title="Transfer confirm")
+        c_def = self.get_user_context(title="Подтверждение перевода")
 
         sender = cache.get('sender')
         receiver = cache.get('receiver')
@@ -198,7 +198,7 @@ class WalletsDelete(DeleteView, LoginRequiredMixin, DataMixin):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
-        c_def = self.get_user_context(title="Wallet deleting")
+        c_def = self.get_user_context(title="Удаление кошелька")
         return context | c_def
 
     def post(self, request, *args, **kwargs):
