@@ -1,0 +1,71 @@
+{% extends 'layout.html' %}
+{% load bootstrap4 %}
+{% block content %}
+{% load i18n %}
+
+<div class="container wrapper flex-grow-1">
+
+    {% for msg in messages %}
+    <div class="alert alert-warning" role="alert">
+    {{ msg }}
+    </div>
+    {% endfor %}
+
+<form method="post" id="selection-form">
+    {% csrf_token %}
+    <div class="row">
+        <div class="col-md-6">
+            <h1 class="my-4"> Отправители </h1>
+            {{ selection_form.selected_objects_1 }}
+            <button type="button" class="select-all-button btn btn-primary" data-target="selected_objects_1">Выбрать все</button>
+            <button type="button" class="clear-selection-button btn btn-primary" data-target="selected_objects_1">Отменить выбор</button>
+
+            <h1 class="my-4"> Количество соланы </h1>
+            {{ selection_form.sol_amount }}
+            <p style="color: grey;">Если хотите отправить всю солану, оставьте значение 0</p>
+            <button class='btn btn-primary' type="submit">Выбрать</button>
+        </div>
+        <div class="col-md-6">
+            <h1 class="my-4"> Получатели </h1>
+            {{ selection_form.selected_objects_2 }}
+            <button type="button" class="select-all-button btn btn-primary" data-target="selected_objects_2">Выбрать все</button>
+            <button type="button" class="clear-selection-button btn btn-primary" data-target="selected_objects_2">Отменить выбор</button>
+        </div>
+    </div>
+</form>
+
+
+</div>
+
+
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const selectAllButtons = document.querySelectorAll('.select-all-button');
+  const clearSelectionButtons = document.querySelectorAll('.clear-selection-button');
+
+  function handleSelection(button, target, value) {
+    const selectionForm = document.getElementById('selection-form');
+    const checkboxes = selectionForm.querySelectorAll(`input[name="${target}"]`);
+    checkboxes.forEach(checkbox => {
+      checkbox.checked = value;
+    });
+  }
+
+  selectAllButtons.forEach(button => {
+    button.addEventListener('click', function() {
+      const target = button.getAttribute('data-target');
+      handleSelection(button, target, true);
+    });
+  });
+
+  clearSelectionButtons.forEach(button => {
+    button.addEventListener('click', function() {
+      const target = button.getAttribute('data-target');
+      handleSelection(button, target, false);
+    });
+  });
+});
+</script>
+
+{% endblock %}

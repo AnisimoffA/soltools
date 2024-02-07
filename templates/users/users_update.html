@@ -1,0 +1,23 @@
+{% extends 'layout.html' %}
+{% load bootstrap4 %}
+{% block content %}
+{% load i18n %}
+
+<div class="container wrapper flex-grow-1">
+    <h1 class="my-4"> {% trans "Update user" %} </h1>
+    <form method="post">
+        {% csrf_token %}
+
+        {% for f in form %}
+        <div class="mb-3">
+            <label class="form-label" for="{{ f.id_for_label }}">{{f.label}}</label>
+            {{ f }}
+            <div class="form-error">{{ f.errors }}</div>
+        </div>
+        {% endfor %}
+
+        <button class="btn btn-primary" type="submit" value="Изменить">{% trans "Update" %}</button>
+    </form>
+</div>
+
+{% endblock %}

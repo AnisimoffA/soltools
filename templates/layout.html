@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }}</title>
+</head>
+<body>
+    {% block mainmenu %}
+
+    {% load bootstrap4 %}
+        {% load i18n %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript jquery='full' %}{% load i18n %}
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="{% url "main_page" %}"> SOL Manager </a>
+        <button class="navbar-toggler" data-toggle="collapse" data-target="#navbarToggleExternalContent">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarToggleExternalContent">
+
+            <ul class="navbar-nav mr-auto">
+                {% for menu_tag in menu %}
+                {% if menu_tag.title == 'Создать кошельки' or menu_tag.title == 'Добавить кошельки' or menu_tag.title == 'Список кошельков' or menu_tag.title == 'Отправить солану' %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url menu_tag.url_name %}"> {{ menu_tag.title }} </a>
+                    </li>
+                {% endif %}
+                {% endfor %}
+            </ul>
+            <ul class="navbar-nav ml-auto">
+                {% for menu_tag in menu %}
+                {% if menu_tag.title == 'Вход' or menu_tag.title == 'Регистрация' or menu_tag.title == 'Выход' or menu_tag.title == "Профиль" %}
+                    {% if menu_tag.title == "Профиль" %}
+                    <li>
+                        <a class="nav-link">{{ user.username }} </a>
+                    </li>
+                    {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url menu_tag.url_name %}"> {{ menu_tag.title }} </a>
+                    </li>
+                    {% endif %}
+                {% endif %}
+                {% endfor %}
+            </ul>
+
+        </div>
+    </nav>
+    {% endblock mainmenu %}
+
+    {% block content %}
+    {% endblock %}
+</body>
+</html>

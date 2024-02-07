@@ -1,0 +1,82 @@
+{% extends 'layout.html' %}
+{% load bootstrap4 %}
+{% block content %}
+{% load i18n %}
+{% csrf_token %}
+
+<div class="container wrapper flex-grow-1">
+
+    {% for msg in messages %}
+    <div class="alert alert-{{msg.tags}} alert-dismissible fade show" role="alert">
+    {{ msg }}
+    </div>
+    {% endfor %}
+
+    <h1 class="my-4"> Кошельки </h1>
+
+    <a href="{% url "download_txt" %}">Скачать кошельки</a>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th> Адрес </th>
+                <th> Баланс </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for wallet in wallets %}
+            <tr>
+                <td> {{ wallet.id }} </td>
+                <td> {{ wallet.get_wallet_address }} </td>
+                <td>
+                    <div id="privateKeyContainer{{ wallet.id }}">
+                    <button class="btn btn-primary show-key" data-wallet-id="{{ wallet.id }}">Показать</button>
+                </div>
+                </td>
+                <td>
+                    <a class="btn btn-danger" href="{% url "wallets_delete" wallet.id %}"> Удалить </a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    var showKeyButtons = document.querySelectorAll(".show-key");
+    showKeyButtons.forEach(function(button) {
+        button.addEventListener("click", function() {
+            var walletId = this.getAttribute("data-wallet-id");
+            showPrivateKey(walletId);
+        });
+    });
+
+    function showPrivateKey(walletId) {
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "{% url 'get_wallet_balance' %}", true);
+        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        xhr.setRequestHeader("X-CSRFToken", getCookie("csrftoken"));
+
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState == 4 && xhr.status == 200) {
+                var response = JSON.parse(xhr.responseText);
+                var privateKeyContainer = document.getElementById("privateKeyContainer" + walletId);
+                privateKeyContainer.innerHTML = response.wallet_balance;
+            }
+        };
+        var data = "wallet_id=" + encodeURIComponent(walletId);
+        xhr.send(data);
+    }
+
+    function getCookie(name) {
+        var value = "; " + document.cookie;
+        var parts = value.split("; " + name + "=");
+        if (parts.length == 2) return parts.pop().split(";").shift();
+    }
+});
+</script>
+
+{% endblock %}

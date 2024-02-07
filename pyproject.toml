@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "webtools"
+version = "0.1.0"
+description = ""
+authors = ["Anisimoff <happyprooo@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+django = "^5.0.1"
+django-bootstrap4 = "^23.4"
+base58 = "^2.1.1"
+django-extensions = "^3.2.3"
+solana = "^0.31.0"
+solders = "^0.19.0"
+psycopg2 = "^2.9.9"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

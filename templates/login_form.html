@@ -1,0 +1,23 @@
+{% extends 'layout.html' %}
+{% load bootstrap4 %}
+{% block content %}
+{% load i18n %}
+
+<div class="container wrapper flex-grow-1">
+
+    {% for msg in messages %}
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+    {{ msg }}
+    </div>
+    {% endfor %}
+
+    <h1 class="my-4"> {% trans Login %} </h1>
+    <form method="post">
+        {% csrf_token %}
+        {% bootstrap_form form %}
+
+        <button class="btn btn-primary" type="submit" value="Войти"> Login </button>
+    </form>
+</div>
+
+{% endblock %}

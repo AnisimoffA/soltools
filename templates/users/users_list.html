@@ -1,0 +1,44 @@
+{% extends 'layout.html' %}
+{% load bootstrap4 %}
+{% block content %}
+{% load i18n %}
+
+<div class="container wrapper flex-grow-1">
+
+    {% for msg in messages %}
+    <div class="alert alert-{{msg.tags}} alert-dismissible fade show" role="alert">
+    {{ msg }}
+    </div>
+    {% endfor %}
+
+    <h1 class="my-4"> Users </h1>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th> Username </th>
+                <th> Full name </th>
+                <th> Creation date </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in users %}
+            <tr>
+                <td> {{ user.id }} </td>
+                <td> {{ user.username }} </td>
+                <td> {{ user.first_name}} {{ user.last_name }} </td>
+                <td> {{ user.date_joined|date:"d.m.Y H:i" }} </td>
+                <td> 
+                    <a href="{% url "users_update" user.id %}"> Update </a>
+                    <br>
+                    <a href="{% url "users_delete" user.id %}"> Delete </a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}
