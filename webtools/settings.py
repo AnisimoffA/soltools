@@ -104,9 +104,6 @@ DATABASES['default'] = dj_database_url.parse('postgres://anisimoff:zB8J57BFsUwfz
 #         'NAME': BASE_DIR / 'db.sqlite3',
 #     }
 # }
-=======
-
->>>>>>> d98e6abb98ad05640534ef75195c7fb3b62493f5
 
 
 # Password validation
