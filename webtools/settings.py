@@ -24,8 +24,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 load_dotenv()
-SECRET_KEY = 'b30a62ae6ac8414991c6ba5d9a5df226'
+
 # SECRET_KEY = os.environ.get('ACCESS_TOKEN')
+SECRET_KEY = 'b30a62ae6ac8414991c6ba5d9a5df226'
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
 # DEBUG = bool(int(os.environ.get('DEBUG', default=1)))
@@ -94,6 +96,7 @@ DATABASES = {
 
 
 DATABASES['default'] = dj_database_url.parse('postgres://anisimoff:zB8J57BFsUwfzlxpsRkFDL11nhSfNynx@dpg-cn1o3d7qd2ns73dn63t0-a.oregon-postgres.render.com/soltools_db')
+
 #
 # DATABASES = {
 #     'default': {
@@ -101,6 +104,9 @@ DATABASES['default'] = dj_database_url.parse('postgres://anisimoff:zB8J57BFsUwfz
 #         'NAME': BASE_DIR / 'db.sqlite3',
 #     }
 # }
+=======
+
+>>>>>>> d98e6abb98ad05640534ef75195c7fb3b62493f5
 
 
 # Password validation
