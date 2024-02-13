@@ -91,6 +91,7 @@ DATABASES = {
     }
 }
 
+
 DATABASES['default'] = dj_database_url.parse('postgres://anisimoff:zB8J57BFsUwfzlxpsRkFDL11nhSfNynx@dpg-cn1o3d7qd2ns73dn63t0-a.oregon-postgres.render.com/soltools_db')
 #
 # DATABASES = {
