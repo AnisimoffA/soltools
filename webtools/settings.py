@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 from pathlib import Path
+from dotenv import load_dotenv
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -20,10 +22,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-il7z=@=amv#_)$j2ovjb_21ht1uxw*9w&0^il!wbcjxqes+-sv'
+load_dotenv()
+SECRET_KEY = os.environ.get('ACCESS_TOKEN')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = bool(int(os.environ.get('DEBUG', default=1)))
 
 ALLOWED_HOSTS = ["*"]
 
@@ -79,13 +82,13 @@ WSGI_APPLICATION = 'webtools.wsgi.application'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.postgresql",
-        "NAME": "soltools_db",
-        "USER": "anisimoff",
-        "PASSWORD": "zB8J57BFsUwfzlxpsRkFDL11nhSfNynx",
-        "HOST": "dpg-cn1o3d7qd2ns73dn63t0-a",
-        "PORT": 5432,
+    'default': {
+        'ENGINE': os.environ.get('SQL_ENGINE', 'django.db.backends.postgresql'),
+        'NAME': os.environ.get('SQL_DATABASE', os.path.join(BASE_DIR, 'db.sqlite3')),
+        'USER': os.environ.get('SQL_USER'),
+        'PASSWORD': os.environ.get('SQL_PASSWORD'),
+        'HOST': os.environ.get('SQL_HOST'),
+        'PORT': os.environ.get('SQL_PORT', 5432)
     }
 }
 #

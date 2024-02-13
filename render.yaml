@@ -1,0 +1,11 @@
+databases:
+  - name: soltools_db
+    databaseName: soltools_db
+    user: anisimoff
+
+services:
+  - type: web
+    name: webtools
+    runtime: python
+    buildCommand: "./build.sh"
+    startCommand: "poetry run gunicorn -w 5 -b 0.0.0.0:8000 webtools.wsgi"
